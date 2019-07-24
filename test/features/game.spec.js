@@ -44,6 +44,15 @@ describe("Test the API routes for the Game Resource", () => {
         expect(body.name).toBe(createdGame.name);
     });
 
+    test("it should get a game's details", async () => {
+        const { statusCode, body } = await request(app).get(
+            "/games/" + game1.twitch_id
+        );
+
+        expect(statusCode).toBe(200);
+        expect(body.name).toBe(game1.name);
+    });
+
     test("it should delete a game", async () => {
         const game = await Game.create({
             twitch_id: 999,

@@ -1,0 +1,98 @@
+swagger: "2.0"
+info:
+  title: Twitch Real Time Viewer Tracker API
+  description: Server that consumes Twitch's API to collect and aggregate data from specific games
+  version: 1.0.0
+paths:
+  /games:
+    get:
+      summary: Returns a list of games
+      description: Fetches a list of game from the database
+      produces:
+        - application/json
+      responses:
+        200:
+          description: ok
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Game'
+    post:
+      summary: Creates a game
+      description: Create a new game inside the database
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: game
+          description: the game to create
+          schema:
+            type: object
+            required:
+              - name
+              - twitch_id
+            properties:
+              name:
+                type: string
+              twitch_id:
+                type: integer
+              box_art_url:
+                type: string 
+      produces:
+        = application/json
+      responses:
+        201:
+          description: ok
+          schema:
+            $ref: '#/definitions/Game'
+
+  /games/{twitch_id}:
+    get:
+      summary: Returns the details of a game
+      description: Fetches a specific game from the database
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: twitch_id
+          type: string
+          description: The twitch ID of the game to fetch
+          required: true
+      responses:
+        200:
+          description: ok
+          schema:
+            $ref: '#/definitions/Game'
+
+    delete:
+      summary: Deletes a game
+      description: Delete a given game from the database
+      consumes:
+        - application/json
+      parameters:
+        - in : path
+          name: twitch_id
+          description: the twitch ID of the game to delete
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        204:
+          description: ok
+          type: object
+definitions:
+  Game:
+    type: object
+    properties:
+      twitch_id:
+        type: integer
+        description: The game's twitch ID.
+      name:
+        type: string
+        description: The name of the game.
+      box_art_url:
+        type: string
+        description: The url for the box art of the game.
+
+

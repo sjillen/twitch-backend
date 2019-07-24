@@ -9,5 +9,7 @@ module.exports = app => {
 
     app.post("/games", GameController.store);
 
+    app.get("/games/:twitch_id", GameController.show);
+
     app.delete("/games/:twitch_id", GameController.destroy);
 };
