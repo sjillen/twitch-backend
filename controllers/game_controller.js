@@ -9,16 +9,21 @@ module.exports = {
      *     type: object
      *     required:
      *       - name
+     *       - twitch_id
      *     properties:
      *       name:
+     *         type: string
+     *       twitch_id: 
+     *         type: integer
+     *       box_art_url:
      *         type: string
      *   Game:
      *     allOf:
      *       - $ref: '#/definitions/NewGame'
      *     required:
-     *       - id
+     *       - twitch_id
      *     properties:
-     *       id:
+     *       twitch_id:
      *         type: integer
      *       name:
      *         type: string
@@ -28,12 +33,12 @@ module.exports = {
      * @swagger
      * /games:
      *   get:
-     *     description: Returns games
+     *     description: Returns all the games persisted inside the database
      *     produces:
      *      - application/json
      *     responses:
      *       200:
-     *         description: games
+     *         description: Fetched the list of Games from the database
      *         schema:
      *           type: array
      *           items:
@@ -60,13 +65,14 @@ module.exports = {
      *       - name: game
      *         description: Game object
      *         in:  body
-     *         required: true
-     *         type: string
+     *         required:
+     *           - twitch_id: integer
+     *           - name: string
      *         schema:
      *           $ref: '#/definitions/NewGame'
      *     responses:
      *       201:
-     *         description: games
+     *         description: The Game has been successfully created
      *         schema:
      *           $ref: '#/definitions/Game'
      */
@@ -91,14 +97,14 @@ module.exports = {
      *     parameters:
      *       - name: id
      *         description: id of the game to delete
-     *         in:  body
+     *         in:  url
      *         required: true
      *         type: integer
-     *         schema:
-     *           $ref: '#/definitions/NewGame'
      *     responses:
      *       204:
-     *         description: empty body if success
+     *         description: The Game has been succesfully deleted from the database
+     *         schema:
+     *           type: object
      */
     async destroy(req ,res, next) {
         console.log(req.params);

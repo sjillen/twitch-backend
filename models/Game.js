@@ -2,8 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const GameSchema = new Schema({
-    id: Number,
+    twitch_id: Number,
     name: String,
+    box_art_url: String
 });
 
 const Game = mongoose.model('game', GameSchema);
