@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "backend for twitch api",
   "main": "index.js",
-  "engines" : {
+  "engines": {
     "node": "10.16.0",
-    "npm" : "6.9.0"
+    "npm": "6.9.0"
   },
   "scripts": {
     "dev": "nodemon index.js",
