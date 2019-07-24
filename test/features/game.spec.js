@@ -23,7 +23,31 @@ describe('Test the API routes for the Game Resource', () => {
     });
 
     test('it should get a list of games', async () => {
-         const response = await request(app).get('/games');
-         expect(response.statusCode).toBe(200);
+         const { statusCode, body } = await request(app).get('/games');
+
+         expect(statusCode).toBe(200);
+         expect(body.length).toBe(2);
+         expect(body[0].name).toBe(game1.name);
+         expect(body[1].name).toBe(game2.name);
+    });
+
+    test('it should create a game', async () => {
+        const createdGame = {
+            id: 999,
+            name: 'indieGame'
+        };
+
+        const { statusCode, body } = await request(app).post('/games').send(createdGame);
+
+        expect(statusCode).toBe(201);
+        expect(body.name).toBe(createdGame.name);
+    });
+
+    test('it should delete a game', async () => {
+        const game = await Game.create({id: 999, name: "gameToDelete"});
+
+        const { statusCode } = await request(app).delete('/games/' + game.id);
+
+        expect(statusCode).toBe(204);
     });
 });
