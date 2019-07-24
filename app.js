@@ -10,7 +10,7 @@ require('dotenv').config();
 mongoose.Promise = global.Promise;
 mongoose.connect(keys.mongoURI, { useNewUrlParser: true })
 .then(() => {
-console.log("MongoDB is connected");
+    console.log("MongoDB is connected");
 })
 .catch(error => {
     console.log("Connection failed!", error);
@@ -22,7 +22,7 @@ const swaggerOptions = {
     definition: {
         info: {
             title: 'Twitch Viewers Track API',
-            vesrion: '1.0'
+            version: '1.0'
         },
     },
     apis: ['./controllers/game_controller.js']

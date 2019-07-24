@@ -1,4 +1,4 @@
-const Game = require('../models/Game');
+const Game = require("../models/Game");
 
 module.exports = {
     /**
@@ -13,7 +13,7 @@ module.exports = {
      *     properties:
      *       name:
      *         type: string
-     *       twitch_id: 
+     *       twitch_id:
      *         type: integer
      *       box_art_url:
      *         type: string
@@ -53,7 +53,7 @@ module.exports = {
         }
     },
 
-        /**
+    /**
      * @swagger
      *
      * /games:
@@ -85,7 +85,6 @@ module.exports = {
         }
     },
 
-
     /**
      * @swagger
      *
@@ -106,16 +105,14 @@ module.exports = {
      *         schema:
      *           type: object
      */
-    async destroy(req ,res, next) {
-        console.log(req.params);
+    async destroy(req, res, next) {
         try {
-            const result = await Game.deleteOne({id: req.params.id});
-            console.log(result);
+            const result = await Game.deleteOne({
+                twitch_id: req.params.twitch_id,
+            });
             res.status(204).json(result);
         } catch (e) {
-            
             next(e);
         }
     },
-}
-
+};
