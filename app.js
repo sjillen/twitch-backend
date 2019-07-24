@@ -8,7 +8,13 @@ const keys = require('./config/keys');
 require('dotenv').config();
 
 mongoose.Promise = global.Promise;
-mongoose.connect(keys.mongoURI, { useNewUrlParser: true });
+mongoose.connect(keys.mongoURI, { useNewUrlParser: true })
+.then(() => {
+console.log("MongoDB is connected");
+})
+.catch(error => {
+    console.log("Connection failed!", error);
+});
 
 const app = express();
 
