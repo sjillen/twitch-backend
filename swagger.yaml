@@ -30,11 +30,11 @@ paths:
             type: object
             required:
               - name
-              - twitch_id
+              - twitchId
             properties:
               name:
                 type: string
-              twitch_id:
+              twitchId:
                 type: integer
               box_art_url:
                 type: string 
@@ -46,7 +46,7 @@ paths:
           schema:
             $ref: '#/definitions/Game'
 
-  /games/{twitch_id}:
+  /games/{twitchId}:
     get:
       summary: Returns the details of a game
       description: Fetches a specific game from the database
@@ -54,7 +54,7 @@ paths:
         - application/json
       parameters:
         - in: path
-          name: twitch_id
+          name: twitchId
           type: string
           description: The twitch ID of the game to fetch
           required: true
@@ -71,7 +71,7 @@ paths:
         - application/json
       parameters:
         - in : path
-          name: twitch_id
+          name: twitchId
           description: the twitch ID of the game to delete
           required: true
           type: string
@@ -85,7 +85,7 @@ definitions:
   Game:
     type: object
     properties:
-      twitch_id:
+      twitchId:
         type: integer
         description: The game's twitch ID.
       name:

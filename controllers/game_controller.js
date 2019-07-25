@@ -1,11 +1,11 @@
-const Game = require("../models/Game");
+const Game = require('../models/Game');
 
 module.exports = {
     async index(req, res, next) {
         try {
             const results = await Game.find({}).lean();
-            const games = results.map(({ name, twitch_id, box_art_url }) => {
-                return { name, twitch_id, box_art_url };
+            const games = results.map(({ name, twitchId, boxArtUrl }) => {
+                return { name, twitchId, boxArtUrl };
             });
             res.status(200).json(games);
         } catch (e) {
@@ -15,10 +15,8 @@ module.exports = {
 
     async store(req, res, next) {
         try {
-            const { name, twitch_id, box_art_url } = await Game.create(
-                req.body
-            );
-            res.status(201).json({ name, twitch_id, box_art_url });
+            const { name, twitchId, boxArtUrl } = await Game.create(req.body);
+            res.status(201).json({ name, twitchId, boxArtUrl });
         } catch (e) {
             next(e);
         }
@@ -26,10 +24,10 @@ module.exports = {
 
     async show(req, res, next) {
         try {
-            const { name, twitch_id, box_art_url } = await Game.findOne({
-                twitch_id: req.params.twitch_id,
+            const { name, twitchId, boxArtUrl } = await Game.findOne({
+                twitchId: req.params.twitchId,
             });
-            res.status(200).json({ name, twitch_id, box_art_url });
+            res.status(200).json({ name, twitchId, boxArtUrl });
         } catch (e) {
             next(e);
         }
@@ -38,7 +36,7 @@ module.exports = {
     async destroy(req, res, next) {
         try {
             const result = await Game.deleteOne({
-                twitch_id: req.params.twitch_id,
+                twitchId: req.params.twitchId,
             });
             res.status(204).json(result);
         } catch (e) {
