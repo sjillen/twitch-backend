@@ -30,18 +30,16 @@ describe('Test the API routes for the Game Resource', () => {
         expect(body[1].name).toBe(game2.name);
     });
 
-    test('it should create a game', async () => {
+    test('it should not create a game that already exists', async () => {
         const createdGame = {
-            id: 999,
-            name: 'indieGame',
+            name: game1.name,
         };
 
-        const { statusCode, body } = await request(app)
+        const { statusCode } = await request(app)
             .post('/games')
             .send(createdGame);
 
-        expect(statusCode).toBe(201);
-        expect(body.name).toBe(createdGame.name);
+        expect(statusCode).toBe(422);
     });
 
     test("it should get a game's details", async () => {

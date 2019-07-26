@@ -1,9 +1,10 @@
 const Game = require('../models/Game');
+const TwitchGateway = require('../services/twitch_gateway');
 
 module.exports = {
     async index(req, res, next) {
         try {
-            const results = await Game.find({}).lean();
+            const results = await Game.find({});
             const games = results.map(({ name, twitchId, boxArtUrl }) => {
                 return { name, twitchId, boxArtUrl };
             });
@@ -15,9 +16,12 @@ module.exports = {
 
     async store(req, res, next) {
         try {
-            const { name, twitchId, boxArtUrl } = await Game.create(req.body);
+            const { name, twitchId, boxArtUrl } = await Game.create(
+                res.locals.games[0]
+            );
             res.status(201).json({ name, twitchId, boxArtUrl });
         } catch (e) {
+            console.error(e);
             next(e);
         }
     },

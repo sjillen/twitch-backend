@@ -30,21 +30,30 @@ paths:
             type: object
             required:
               - name
-              - twitchId
             properties:
               name:
                 type: string
-              twitchId:
-                type: integer
-              box_art_url:
-                type: string 
       produces:
-        = application/json
+        - application/json
       responses:
         201:
           description: ok
           schema:
             $ref: '#/definitions/Game'
+        404:
+          description: Game is not referenced on Twitch
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+        422:
+          description: Game already exists in Database
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
 
   /games/{twitchId}:
     get:
