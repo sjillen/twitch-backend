@@ -90,6 +90,27 @@ paths:
         204:
           description: ok
           type: object
+
+  /snapshots:
+    summary: Get the list of all the snapshots taken
+    description: Fetches the whole list of snapshots from the database
+    produces:
+      - application/json
+    responses:
+      200:
+        description: ok
+        schema:
+          type: array
+          items:
+            $ref: '#/definitions/Snapshot'
+      404:
+        description: No Snapshot exists for the specified gameId
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+
 definitions:
   Game:
     type: object
@@ -100,8 +121,22 @@ definitions:
       name:
         type: string
         description: The name of the game.
-      box_art_url:
+      boxArtUrl:
         type: string
         description: The url for the box art of the game.
+
+  Snapshot:
+    type: object
+    properties:
+      gameId:
+        type: integer
+        description: The id of the game the snapshot is of
+      timestamp:
+        type: date
+        description: The time the snapshot was taken
+      viewers:
+        type: integer
+        description: The total number of viewers accounted at the time of the snapshot
+      
 
 
