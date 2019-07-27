@@ -11,7 +11,10 @@ const swaggerDocument = YAML.load('./swagger.yaml');
 require('dotenv').config();
 
 mongoose.Promise = global.Promise;
-mongoose.connect(keys.mongoURI, { useNewUrlParser: true });
+mongoose.connect(keys.mongoURI, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+});
 
 const app = express();
 
@@ -21,6 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ type: 'application/json' }));
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-require('./router')(app);
+require('./routes/game_routes')(app);
+require('./routes/snapshot_routes')(app);
 
 module.exports = app;
