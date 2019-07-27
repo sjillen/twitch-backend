@@ -10,6 +10,8 @@ paths:
       description: Fetches a list of game from the database
       produces:
         - application/json
+      tags:
+        - games
       responses:
         200:
           description: ok
@@ -33,6 +35,8 @@ paths:
             properties:
               name:
                 type: string
+      tags:
+        - games
       produces:
         - application/json
       responses:
@@ -59,6 +63,8 @@ paths:
     get:
       summary: Returns the details of a game
       description: Fetches a specific game from the database
+      tags:
+        - games
       produces:
         - application/json
       parameters:
@@ -76,6 +82,8 @@ paths:
     delete:
       summary: Deletes a game
       description: Delete a given game from the database
+      tags:
+        - games
       consumes:
         - application/json
       parameters:
@@ -92,24 +100,27 @@ paths:
           type: object
 
   /snapshots:
-    summary: Get the list of all the snapshots taken
-    description: Fetches the whole list of snapshots from the database
-    produces:
-      - application/json
-    responses:
-      200:
-        description: ok
-        schema:
-          type: array
-          items:
-            $ref: '#/definitions/Snapshot'
-      404:
-        description: No Snapshot exists for the specified gameId
-        schema:
-          type: object
-          properties:
-            message:
-              type: string
+    get:
+      summary: Get the list of all the snapshots taken
+      description: Fetches the whole list of snapshots from the database
+      tags:
+        - snapshots
+      produces:
+        - application/json
+      responses:
+        200:
+          description: ok
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Snapshot'
+        404:
+          description: No Snapshot exists for the specified gameId
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
 
 definitions:
   Game:
