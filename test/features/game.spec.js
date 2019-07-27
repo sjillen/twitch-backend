@@ -5,12 +5,15 @@ const keys = require('../../config/keys');
 const mongoose = require('mongoose');
 
 describe('Test the API routes for the Game Resource', () => {
+    let game1, game2;
+
     beforeAll(async () => {
         mongoose.Promise = global.Promise;
-        await mongoose.connect(keys.mongoURI, { useNewUrlParser: true });
+        await mongoose.connect(keys.mongoURI, {
+            useNewUrlParser: true,
+            useCreateIndex: true,
+        });
     });
-
-    let game1, game2;
 
     beforeEach(async () => {
         game1 = await Game.create({ name: 'MyFirstGame', twitchId: 900 });

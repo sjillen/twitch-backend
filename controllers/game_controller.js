@@ -1,5 +1,4 @@
 const Game = require('../models/Game');
-const TwitchGateway = require('../services/twitch_gateway');
 
 module.exports = {
     async index(req, res, next) {
@@ -33,6 +32,7 @@ module.exports = {
             });
             res.status(200).json({ name, twitchId, boxArtUrl });
         } catch (e) {
+            console.error(e);
             next(e);
         }
     },
@@ -44,6 +44,7 @@ module.exports = {
             });
             res.status(204).json(result);
         } catch (e) {
+            console.error(e);
             next(e);
         }
     },
