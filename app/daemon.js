@@ -32,6 +32,7 @@ class Daemon {
             console.error(e);
             return;
         }
+        console.log(snapshots);
         this.io.emit('snapshots', snapshots);
     }
 }
