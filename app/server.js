@@ -5,7 +5,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
-const keys = require('./config/keys');
+const keys = require('../config/keys');
 
 const swaggerDocument = YAML.load('./swagger.yaml');
 require('dotenv').config();
@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ type: 'application/json' }));
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-require('./routes/game_routes')(app);
-require('./routes/snapshot_routes')(app);
+require('../routes/game_routes')(app);
+require('../routes/snapshot_routes')(app);
 
 module.exports = app;

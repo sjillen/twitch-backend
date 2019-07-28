@@ -10,7 +10,7 @@
     "scripts": {
         "dev": "nodemon index.js",
         "start:server": "node index.js",
-        "start:daemon": "node daemon.js",
+        "start:daemon": "node app/daemon.js",
         "start": "concurrently npm:start:*",
         "test": "NODE_ENV=test jest --watchAll"
     },
@@ -26,6 +26,7 @@
         "jest": "^24.8.0",
         "mongoose": "^5.6.6",
         "morgan": "^1.9.1",
+        "socket.io": "^2.2.0",
         "supertest": "^4.0.2",
         "swagger-ui-express": "^4.0.7",
         "yamljs": "^0.3.0"
