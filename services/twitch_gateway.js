@@ -15,7 +15,11 @@ const NB_OF_ITEMS = 100;
 
 module.exports = {
     async getGames(
-        names = ["assassin's creed odyssey", 'far cry 5', 'rainbow six siege']
+        names = [
+            "assassin's creed odyssey",
+            'far cry 5',
+            "tom clancy's rainbow six siege",
+        ]
     ) {
         const params = names.map(name => {
             return { key: 'name', value: name };

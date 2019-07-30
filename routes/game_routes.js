@@ -1,9 +1,10 @@
 const GameController = require('../controllers/game_controller');
 const requireUniqueGame = require('../middlewares/requireUniqueGame');
 const fetchTwitchGame = require('../middlewares/fetchTwitchGame');
+const fetchDefaultGames = require('../middlewares/fetchDefaultGames');
 
 module.exports = app => {
-    app.get('/games', GameController.index);
+    app.get('/games', fetchDefaultGames, GameController.index);
 
     app.post(
         '/games',

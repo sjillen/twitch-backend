@@ -2,15 +2,8 @@ const Game = require('../models/Game');
 
 module.exports = {
     async index(req, res, next) {
-        try {
-            const results = await Game.find({});
-            const games = results.map(({ name, twitchId, boxArtUrl }) => {
-                return { name, twitchId, boxArtUrl };
-            });
-            res.status(200).json(games);
-        } catch (e) {
-            next(e);
-        }
+        const games = res.locals.games;
+        res.status(200).json(games);
     },
 
     async store(req, res, next) {
