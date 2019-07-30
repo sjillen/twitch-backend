@@ -1,4 +1,4 @@
-# Backend
+# Twitch Tracker Backend
 
 This is the backend server of the Twitch tracker project, powered by [Node.js](https://nodejs.org), [Express](https://expressjs.com).
 The corresponding [FrontEnd](https://github.com/ThomasProust/twitch-frontend.git) of the application needs to this to be able to run.
