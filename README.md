@@ -37,7 +37,7 @@ To run the server with automatic reload, you can enter `npm run dev` from your c
 In order for your [FrontEnd](https://github.com/ThomasProust/twitch-frontend.git) to run smoothly, you should create the corresponding resources:
 Via curl:
 
-```ssh
+```sh
 curl -X POST http://localhost:5000/games -H "Content-Type: application/json" -d '{"name": "Far Cry 5"}'
 curl -X POST http://localhost:5000/games -H "Content-Type: application/json" -d '{"name": "Assassin\s creed odyssey"}'
 curl -X POST http://localhost:5000/games -H "Content-Type: application/json" -d '{"name": "Tom Clancy's Rainbow Six Siege"}'
