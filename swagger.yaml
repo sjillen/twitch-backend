@@ -1,17 +1,17 @@
 swagger: "2.0"
 info:
-  title: Twitch Real Time Viewer Tracker API
-  description: Server that consumes Twitch's API to collect and aggregate data from specific games
+  title: Twitch Tracker API
+  description: Server that consumes Twitch's API to collect and aggregate data from specific games. It manages two resources - `Game` and `Snapshot`. The resource `Game` is created by consuming the `Twitch API` [getGames](https://dev.twitch.tv/docs/api/reference/#get-games). The resource `Snapshot` is created by collecting the full list of streams from the Twitch API via [getStreams](https://dev.twitch.tv/docs/api/reference/#get-streams) and incrementing the number of viewers for each game.
   version: 1.0.0
 paths:
   /games:
     get:
       summary: Returns a list of games
-      description: Fetches a list of game from the database
+      description: Fetches the `list of all the games` registered in the database. 
       produces:
         - application/json
       tags:
-        - games
+        - Games
       responses:
         200:
           description: ok
@@ -21,13 +21,13 @@ paths:
               $ref: '#/definitions/Game'
     post:
       summary: Creates a game
-      description: Create a new game inside the database
+      description: Create a new game inside the database. The Application will first start that the game is not already registered. Then it will call te `Twitch API` to fetch the details of the game
       consumes:
         - application/json
       parameters:
         - in: body
           name: game
-          description: the game to create
+          description: The body is an Object with a `name` attribute that corresponds to the Game you want to registered in the database. You need to enter the `full name` of the game so it can be retrieve from Twitch's catalogue
           schema:
             type: object
             required:
@@ -35,8 +35,9 @@ paths:
             properties:
               name:
                 type: string
+                example: Assassin's creed Odyssey
       tags:
-        - games
+        - Games
       produces:
         - application/json
       responses:
@@ -45,32 +46,35 @@ paths:
           schema:
             $ref: '#/definitions/Game'
         404:
-          description: Game is not referenced on Twitch
+          description: The Game is not referenced on Twitch
           schema:
             type: object
             properties:
               message:
                 type: string
+                example: Game is not referenced on Twitch
         422:
-          description: Game already exists in Database
+          description: The Game already exists in Database
           schema:
             type: object
             properties:
               message:
                 type: string
+                example: Game already exists in Database
 
   /games/{twitchId}:
     get:
       summary: Returns the details of a game
-      description: Fetches a specific game from the database
+      description: Fetches a specific game by its `twitchId` from the database
       tags:
-        - games
+        - Games
       produces:
         - application/json
       parameters:
         - in: path
           name: twitchId
           type: string
+          example: 497078
           description: The twitch ID of the game to fetch
           required: true
       responses:
@@ -79,32 +83,12 @@ paths:
           schema:
             $ref: '#/definitions/Game'
 
-    delete:
-      summary: Deletes a game
-      description: Delete a given game from the database
-      tags:
-        - games
-      consumes:
-        - application/json
-      parameters:
-        - in : path
-          name: twitchId
-          description: the twitch ID of the game to delete
-          required: true
-          type: string
-      produces:
-        - application/json
-      responses:
-        204:
-          description: ok
-          type: object
-
   /snapshots:
     get:
-      summary: Get the list of all the snapshots taken
-      description: Fetches the whole list of snapshots from the database
+      summary: Get the list of all the snapshots from the database.
+      description: Fetches the whole list of snapshots from the database. The snapshots are pulled from the Twitch API. They consist of the sum of `viewers` for a specific game, the `timestamp` corresponding to the time the request was made, and the `gameId` which is equal to the twitchId of the streamed game.
       tags:
-        - snapshots
+        - Snapshots
       produces:
         - application/json
       responses:
@@ -121,6 +105,7 @@ paths:
             properties:
               message:
                 type: string
+                example: "No snapshot exists for the specified gameId"
 
 definitions:
   Game:
@@ -128,12 +113,15 @@ definitions:
     properties:
       twitchId:
         type: integer
+        example: 497078
         description: The game's twitch ID.
       name:
         type: string
+        example: Far Cry 5
         description: The name of the game.
       boxArtUrl:
         type: string
+        example: https://static-cdn.jtvnw.net/ttv-boxart/Far%20Cry%205-{width}x{height}.jpg
         description: The url for the box art of the game.
 
   Snapshot:
@@ -141,12 +129,15 @@ definitions:
     properties:
       gameId:
         type: integer
+        example: 497078
         description: The id of the game the snapshot is of
       timestamp:
         type: date
+        example: 2019-07-29 07:09:10.187Z
         description: The time the snapshot was taken
       viewers:
         type: integer
+        example: 456
         description: The total number of viewers accounted at the time of the snapshot
       
 
