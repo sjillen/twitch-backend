@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('../../app');
+const app = require('../../app/server');
 const Game = require('../../models/Game');
 const keys = require('../../config/keys');
 const mongoose = require('mongoose');

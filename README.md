@@ -1,7 +1,7 @@
 # Backend
 
 This is the backend server of the Twitch tracker project, powered by [Node.js](https://nodejs.org), [Express](https://expressjs.com).
-The corresponding [FrontEnd](https://github.com/ThomasProust/frontend.git) of the application needs to this to be able to run.
+The corresponding [FrontEnd](https://github.com/ThomasProust/twitch-frontend.git) of the application needs to this to be able to run.
 
 ## Prerequisites
 
@@ -32,7 +32,13 @@ In order to start the server, just enter `npm start` from your cli.
 You should then be able to make requests to the following url
 `http://localhost:5000`
 
-For run the server with automatic reload, you can enter `npm run dev` from your cli.
+For run the server with automatic reload, you can enter `npm run dev` from your cli. _Nodemon required_
+
+## Testing
+
+In order to run the test, you will need to have a connection to a mongo database. The tests will run the operations involving mongo in a separate database named as follow : `YOUR-DATABASE-NAME_test`.
+
+Run `npm run test` to execute the tests via [Jest](http://jestjs.io).
 
 ## API doc
 
