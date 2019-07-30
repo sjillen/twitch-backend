@@ -2,6 +2,7 @@ const TwitchGateway = require('../services/twitch_gateway');
 const GameDto = require('../dto/GameDto');
 
 module.exports = (req, res, next) => {
+    console.log(req.body.name);
     TwitchGateway.getGames([req.body.name])
         .catch(e => res.status(400).json({ error: e.message }))
         .then(games => {
