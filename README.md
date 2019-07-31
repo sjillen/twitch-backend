@@ -15,6 +15,8 @@ npm install -g nodemon
 
 ## Setup
 
+Install dependencies by running `npm install`
+
 Before running the application, create a `.env` file at the root directory of the project with the following variables:
 
 ```
