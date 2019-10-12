@@ -10,7 +10,8 @@
     "scripts": {
         "dev": "nodemon index.js",
         "start": "node index.js",
-        "test": "NODE_ENV=test jest"
+        "test": "NODE_ENV=test jest --detectOpenHandles",
+        "tdd": "NODE_ENV=test jest --detectOpenHandles --watchAll"
     },
     "author": "",
     "license": "ISC",
