@@ -21,14 +21,10 @@ describe('Test the Daemon', () => {
         const limit = 100;
         await seedSnapshots(limit);
         const daemon = new Daemon();
-        try {
-            await daemon.deleteOldSnapshots(limit);
-        } catch (e) {
-            console.error(e);
-        }
+
+        await daemon.deleteOldSnapshots(limit);
 
         const count = await Snapshot.count();
-
         expect(count).toBe(limit / 2);
     });
 });
