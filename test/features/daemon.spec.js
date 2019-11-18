@@ -13,7 +13,7 @@ describe('Test the Daemon', () => {
         });
     });
 
-    afterAll(async () => {
+    afterEach(async () => {
         await Snapshot.deleteMany({});
     });
 
@@ -26,6 +26,18 @@ describe('Test the Daemon', () => {
 
         const count = await Snapshot.count();
         expect(count).toBe(limit / 2);
+    });
+
+    test('it should delete the oldest entries', async () => {
+        const limit = 10;
+        await seedSnapshots(limit);
+        const daemon = new Daemon();
+        const first = await Snapshot.find({});
+
+        await daemon.deleteOldSnapshots(limit);
+
+        const oldest_left = await Snapshot.find({});
+        expect(oldest_left[0]).toEqual(first[first.length / 2]);
     });
 });
 
