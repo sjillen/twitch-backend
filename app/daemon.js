@@ -40,8 +40,8 @@ class Daemon {
         const total = await Snapshot.estimatedDocumentCount();
         if (total >= limit) {
             const oldSnaphots = await Snapshot.find({})
-                .limit(limit / 2)
                 .sort('timestamp')
+                .limit(limit / 2)
                 .select('_id');
             await Snapshot.deleteMany({ _id: { $in: oldSnaphots } });
         }
