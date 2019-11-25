@@ -24,7 +24,7 @@ describe('Test the Daemon', () => {
 
         await daemon.deleteOldSnapshots(limit);
 
-        const count = await Snapshot.count();
+        const count = await Snapshot.estimatedDocumentCount();
         expect(count).toBe(limit / 2);
     });
 
